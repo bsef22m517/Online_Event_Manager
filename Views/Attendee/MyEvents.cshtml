@@ -1,0 +1,53 @@
+﻿@model List<Event>
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "My Events - EventHub";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Events - EventHub</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body style="background: url('/images/background.jpg') no-repeat center center; background-size: cover; background-attachment: fixed; color: white; overflow-y:scroll;">
+
+    <div class="container mt-4" style="padding-top:40px">
+        <h2 class="text-center mb-2">Your RSVPed Events</h2>
+        <p class="text-center">Here are the events you have RSVP'd for</p>
+
+        <div class="row">
+            @if (Model != null && Model.Count > 0)
+            {
+                @foreach (var eventItem in Model)
+                {
+                    <div class="col-md-4 mb-4 d-flex">
+                        <div class="card flex-fill p-3" style="background-color: rgba(10, 10, 25, 0.95); color: white; border-radius: 15px;">
+                            <div class="text-center mb-3">
+                                <img src="@(string.IsNullOrEmpty(eventItem.ImageUrl) ? "/images/Capture.JPG" : eventItem.ImageUrl)"
+                                     alt="Event Image"
+                                     class="img-fluid rounded shadow"
+                                     style="max-height: 300px; object-fit: cover; border: 2px solid #4da6ff;" />
+                            </div>
+                            <h5>@eventItem.Title</h5>
+                            <p>@eventItem.Date.ToShortDateString() | @eventItem.Location</p>
+                            <a href="@Url.Action("EventDetails", "Attendee", new { id = eventItem.Id })"
+                               class="btn text-white"
+                               style="background-color: #427fbd;">View Details</a>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12">
+                    <p class="text-center">You haven't RSVP'd for any events yet.</p>
+                </div>
+            }
+        </div>
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

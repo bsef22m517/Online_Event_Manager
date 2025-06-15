@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home-EventHub</title>
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+</head>
+
+    <div class="container text-center d-flex flex-column justify-content-center align-items-center" style="min-height:80vh ; padding:10%; ">
+        <h1 style="font-size :3rem; font-weight: bold ;">
+            Discover <span style="background:linear-gradient(45deg,  #4da6ff, #92419c); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Amazing Events!</span>
+        </h1>
+        <p style="font-size: 1.5rem;">
+            Set up an event. Host a memorable event today. Join an event.
+        </p>
+
+        <a href="/Identity/Account/Login" class="btn" style="background-color: #004080; color: white; padding: 12px 20px; border-radius: 8px;font-size: 1.5rem; margin-top: 20px;">
+            Discover More
+        </a>
+        <img src="/images/AdobeStock_1309377866_Preview.png" class="mt-4" style="max-width: 100%; border-radius: 15px;">
+    </div>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</html>

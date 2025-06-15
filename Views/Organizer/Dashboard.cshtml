@@ -1,0 +1,57 @@
+﻿@model EventHubApplication.Models.OrganizerViewModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Organizer Dashboard - EventHub";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+    <div class="container py-4">
+        <h2 class="text-center mb-2">Welcome, @Model.Name</h2>
+        <p class="text-center mb-4">Manage your events efficiently!</p>
+
+        <div class="row gx-4 gy-4">
+            <div class="col-lg-12">
+                <div class="row g-4">
+                    @foreach (var ev in Model.Events)
+                    {
+                        <div class="col-sm-12 col-md-6 col-lg-4 d-flex">
+                            <div class="card flex-fill text-white p-3" style="background-color: rgba(10, 10, 25, 0.9);">
+                            @if (!string.IsNullOrEmpty(ev.ImageUrl))
+                            {
+                                <div class="text-center mb-4">
+                                    <img src="@ev.ImageUrl" alt="Event Image" class="img-fluid rounded shadow"
+                                         style="max-height: 300px; object-fit: cover; border: 2px solid #4da6ff;" />
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="text-center mb-4">
+                                    <img src="/images/Capture.JPG" alt="Event Image" class="img-fluid rounded shadow"
+                                         style="max-height: 300px; object-fit: cover; border: 2px solid #4da6ff;" />
+                                </div>
+                            }
+                                <h5 class="card-title" style="color:darkcyan">@ev.Title</h5>
+                                <p class="card-text"><strong>Description:</strong> @ev.Description</p>
+                                <p class="mb-1"><strong>Date:</strong> @ev.Date.ToString("MMMM dd, yyyy")</p>
+                                <p class="mb-1"><strong>Speaker:</strong> @ev.Speaker</p>
+                                <p class="mb-3"><strong>Location:</strong> @ev.Location</p>
+                                <a href="@Url.Action("EventDetails", "Organizer", new { id = ev.Id })" class="btn btn-primary mt-auto" style="background-color: #004080;">View Details</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+</html>

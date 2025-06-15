@@ -1,0 +1,42 @@
+﻿@model List<EventHub.Models.RSVP>
+
+@{
+    ViewData["Title"] = "All RSVPs";
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All RSVPs - EventHub</title>
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<div class="container mt-5" style="padding-top: 50px; ">
+        <h2 class="text-center mb-4" style="background: linear-gradient(45deg, #4da6ff, #92419c); -webkit-background-clip: text; color: transparent;">RSVP List</h2>
+
+        @if (!Model.Any())
+        {
+            <p class="text-center text-light">No RSVPs yet.</p>
+        }
+        else
+        {
+            <div class="row g-4">
+                @foreach (var rsvp in Model)
+                {
+                    <div class="col-md-6">
+                        <div class="p-3 rounded shadow" style="background-color: rgba(10, 10, 25, 0.95); border: 1px solid #4da6ff;">
+                            <h5 style="color: #4da6ff;">@rsvp.User.Name</h5>
+                            <p><strong>Email:</strong> @rsvp.User.Email</p>
+                            <p><strong>Date:</strong> @rsvp.RSVPDate.ToString("MMM dd, yyyy hh:mm tt")</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</html>

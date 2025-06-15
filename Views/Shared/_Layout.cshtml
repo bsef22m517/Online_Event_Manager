@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EventHub</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<div id="eventNotification" style="display:none;position:fixed;bottom:30px;right:30px;background-color:#1e1e2f;color:white;padding:15px 20px;border-radius:10px;box-shadow:0 0 10px #4da6ff;font-size:1rem;z-index:9999;transition:opacity 0.5s ease-in-out;"><span id="eventMessage"></span></div>
+
+<body style="background: url('/images/background.jpg') no-repeat center center fixed; background-size: cover; color: white; overflow-y: scroll;">
+    <header>
+        @if (User.HasClaim("UserType", "Organizer"))
+        {
+        <nav style="background-color: #0a0a19; padding: 15px; display: flex; justify-content: space-between; align-items: center; width: 100%; position: fixed; top: 0; left: 0; z-index: 1000;">
+            <a href="@Url.Action("Dashboard","Organizer")" style="display: flex; align-items: center; text-decoration: none; color: white; font-size: 24px; font-weight: bold; margin-left: 20px;">
+                <img src="/images/AdobeStock_1051965945_Preview-removebg-preview.png" asp-append-version="true" style="height: 40px; width: auto; margin-right: 10px;">
+                EventHub
+            </a>
+            <div style="margin-right: 20px;">
+                <a href="@Url.Action("Profile","Account")" style="color: white; text-decoration: none; margin: 0 15px;">Profile</a>
+                <a href="@Url.Action("Dashboard","Organizer")" style="color: white; text-decoration: none; margin: 0 15px;">Dashboard</a>
+                    <a href="@Url.Action("AllRSVPsByOrganizer","Organizer")" style="color: white; text-decoration: none; margin: 0 15px;">TotalRSVPs</a>
+
+                <a href="@Url.Action("AddEvent","Organizer")" style="color: white; text-decoration: none; margin: 0 15px;">Add an Event</a>
+                    <a href="/Identity/Account/Logout" style="color: #ff4d4d; text-decoration: none; margin: 0 15px;">Logout</a>
+            </div>
+        </nav>
+        }
+       else if (User.HasClaim("UserType", "Attendee")){
+        <nav style="background-color: #0a0a19; padding: 15px; display: flex; justify-content: space-between; align-items: center; width: 100%; position: fixed; top: 0; left: 0; z-index: 1000;">
+                <a href="@Url.Action("Dashboard","Attendee")" style="display: flex; align-items: center; text-decoration: none; color: white; font-size: 24px; font-weight: bold; margin-left: 20px;">
+                <img src="/images/AdobeStock_1051965945_Preview-removebg-preview.png" asp-append-version="true" style="height: 40px; width: auto; margin-right: 10px;">
+                EventHub
+            </a>
+            <div style="margin-right: 20px;">
+                <a href="@Url.Action("Profile","Account")" style="color: white; text-decoration: none; margin: 0 15px;">Profile</a>
+                <a href="@Url.Action("MyEvents","Attendee")" style="color: white; text-decoration: none; margin: 0 15px;">My Events</a>
+                <a href="@Url.Action("Dashboard","Attendee")" style="color: white; text-decoration: none; margin: 0 15px;">Dashboard</a>
+                    <a href="/Identity/Account/Logout" style="color: #ff4d4d; text-decoration: none; margin: 0 15px;">Logout</a>
+            </div>
+        </nav>
+        }
+
+        else {
+        <nav style="background-color: #0a0a19; padding: 15px; display: flex; justify-content: space-between; align-items: center; width: 100%; position: fixed; top: 0; left: 0; z-index: 1000;">
+            <a href="@Url.Action("Index","Home")" style="display: flex; align-items: center; text-decoration: none; color: white; font-size: 24px; font-weight: bold; margin-left: 20px;">
+                <img src="/images/AdobeStock_1051965945_Preview-removebg-preview.png" asp-append-version="true" style="height: 40px; width: auto; margin-right: 10px;">
+                EventHub
+            </a>
+            <div style="margin-right: 20px;">
+                    <a href="/Identity/Account/Login" style="color: white; text-decoration: none; margin: 0 15px;">Login</a>
+                    <a href="/Identity/Account/Register" style="color: white; text-decoration: none; margin: 0 15px;">Register</a>
+            </div>
+        </nav>
+
+        }
+
+        
+    </header>
+    <div class="container" style="margin-top: 70px; margin-bottom: 70px;">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+
+    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @* <script src="~/js/site.js" asp-append-version="true"></script> *@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/chat.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

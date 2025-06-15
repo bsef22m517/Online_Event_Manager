@@ -1,0 +1,44 @@
+﻿@model EventHubApplication.Models.AttendeeViewModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = Model.Event.Title + " - Event Details";
+}
+
+<div class="container mt-5 mb-5" style="padding-top:40px">
+    <div class="card p-4" style="background-color: rgba(10, 10, 25, 0.95); color: white; border-radius: 15px;">
+        <h2 class="mb-3" style="background: linear-gradient(45deg, #4da6ff, #92419c); -webkit-background-clip: text; color: transparent;">
+            @Model.Event.Title
+        </h2>
+        <div class="text-center mb-3">
+            <img src="@(string.IsNullOrEmpty(Model.Event.ImageUrl) ? "/images/Capture.JPG" : Model.Event.ImageUrl)"
+                 alt="Event Image"
+                 class="img-fluid rounded shadow"
+                 style="max-height: 300px; object-fit: cover; border: 2px solid #4da6ff;" />
+        </div>
+        <p><strong>Date:</strong> @Model.Event.Date.ToString("MMMM dd, yyyy")</p>
+        <p><strong>Location:</strong> @Model.Event.Location</p>
+        <p><strong>Type:</strong> @Model.Event.Type</p>
+        <p><strong>Description:</strong> @Model.Event.Description</p>
+
+        @if (Model.HasRSVPed)
+        {
+            <div class="card mt-4 align-content-center" style="background-color:rgba(10, 10, 25, 0.95)  ; color:beige ; border-color: #4da6ff ; padding:40px" >
+                <p><strong>You have already RSVPed to this event.</strong></p>
+                @if (Model.RSVPDate != null)
+                {
+                    <p><small>Your RSVP time: <strong>@Model.RSVPDate?.ToString()</strong></small></p>
+                }
+            </div>
+        }
+        else
+        {
+            <form method="post" asp-action="RSVPConfirm" asp-controller="Attendee">
+                <input type="hidden" name="eventId" value="@Model.Event.Id" />
+                <button type="submit" class="btn btn-success mt-4" style="background-color: #427fbd; border: none;">
+                    RSVP to this Event
+                </button>
+            </form>
+        }
+    </div>
+</div>

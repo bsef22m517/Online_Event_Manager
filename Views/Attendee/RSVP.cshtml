@@ -1,0 +1,42 @@
+﻿@model Event
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "RSVP to the Event: " + Model.Title;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSVP - @Model.Title - EventHub</title>
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+    <div class="container mt-4" style="padding-top:40px">
+        <h2 class="text-center">RSVP to: @Model.Title</h2>
+        <p class="text-center">Please confirm your attendance:</p>
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-6">
+                <div class="card p-3" style="background-color: rgba(10, 10, 25, 0.9); color: white;">
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <div class="text-center mb-4">
+                        <img src="@Model.ImageUrl" alt="Event Image" class="img-fluid rounded shadow"
+                             style="max-height: 300px; object-fit: cover; border: 2px solid #4da6ff;" />
+                    </div>
+                }<h5>@Model.Title</h5>
+                <p><strong>Date:</strong> @Model.Date.ToShortDateString()</p>
+                <p><strong>Location:</strong> @Model.Location</p>
+                <form method="post" action="@Url.Action("RSVPConfirm", "Attendee")">
+                    <input type="hidden" name="eventId" value="@Model.Id" />
+                    <button type="submit" class="btn btn-success w-100" id="submitRsvp" style="background-color: #427fbd;">RSVP Now</button>
+                </form>
+            </div>   
+           </div>
+        </div>
+
+    </div>
+    <script src="~/js/chat.js" asp-append-version="true"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</html>
